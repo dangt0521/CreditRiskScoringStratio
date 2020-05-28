@@ -42,7 +42,7 @@
 
 ### ScoringModelAudit - (Output - Parquet):
 
-> The data with the transformations before the classifications is saved in a parquet file on the path ***/certification/students/dangt0521/*** for auditing. The table name in crossdata for this data is ***ScoringModelAudit_dangt0521***
+> The data with the transformations before the classifications is saved in a parquet file on the path ***/certification/students/dangt0521/*** for auditing. The table name in crossdata for this data is ***ScoringModelAudit_dangt0521***.
 
 ### Repartition - (Transformation - Repartition):
 
@@ -50,27 +50,27 @@
 
 ### HighRiskFilter - (Transformation - Filter):
 
-> This filter returns the data where the ProbabilityValue is minor than 0.8. If so, the client is classified with a ***red risk scoring level.***
+> This filter returns the data where the ProbabilityValue is minor than 0.8. If so, the client is classified with a ***red risk scoring level***.
 
 ### IncomeTaxAlert - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the applicant has not paid the income tax. If so, the client is classified with a ***red risk scoring level.***
+> With the discarded data of the previous filter, this filter returns the data where the applicant has not paid the income tax. If so, the client is classified with a ***red risk scoring level***.
 
 ### UnpaidCreditsOrFraudReports - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the applicant has been involved in a legal case involving unpaid credits or is registered in at least one police report related to fraud. If so, the client is classified with a ***red risk scoring level.***
+> With the discarded data of the previous filter, this filter returns the data where the applicant has been involved in a legal case involving unpaid credits or is registered in at least one police report related to fraud. If so, the client is classified with a ***red risk scoring level***.
 
 ### ExternalOrAuditDataFraud - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the applicant may be in a source of fraud audit data or has  been registered in any external data source as fraudulent when paying subscription services like Telecomunications, mobiles, etc. If so, the client is classified with a ***yellow risk scoring level.***
+> With the discarded data of the previous filter, this filter returns the data where the applicant may be in a source of fraud audit data or has  been registered in any external data source as fraudulent when paying subscription services like Telecomunications, mobiles, etc. If so, the client is classified with a ***yellow risk scoring level***.
 
 ### NoFraudulentAddress - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the applicant has used false address fraudulently. If so, the client is classified with a ***yellow risk scoring level.***
+> With the discarded data of the previous filter, this filter returns the data where the applicant has used false address fraudulently. If so, the client is classified with a ***yellow risk scoring level***.
 
 ### HighCreditSizeThreshold - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the credit amount of the applicant is greater than four thousand. If so, the client is classified with a ***green risk scoring level.***
+> With the discarded data of the previous filter, this filter returns the data where the credit amount of the applicant is greater than four thousand. If so, the client is classified with a ***green risk scoring level***.
 
 ### RedLevelScoring - (Transformation - Union):
 
@@ -106,7 +106,7 @@
 
 ### Parquet - (Output - Parquet):
 
-> The data with all the transformations and classifications is saved in a parquet file on the path ***/certification/students/dangt0521/***. The table name in crossdata for this data is ***CreditRiskScoring_dangt0521***
+> The data with all the transformations and classifications is saved in a parquet file on the path ***/certification/students/dangt0521/***. The table name in crossdata for this data is ***CreditRiskScoring_dangt0521***.
 
 ## Dashboard
 
