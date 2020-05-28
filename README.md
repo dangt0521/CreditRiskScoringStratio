@@ -40,9 +40,13 @@
 
 > In order to avoid useless computation overheads, the Persist operation is used to persist and/or cache the data set in memory across operations.
 
+### ScoringModelAudit - (Output - Parquet):
+
+> The data with the transformations before the classifications is saved in a parquet file on the path ***/certification/students/dangt0521/*** for auditing. The table name in crossdata for this data is ***ScoringModelAudit_dangt0521***
+
 ### Repartition - (Transformation - Repartition):
 
-> One partition was created for performance tuning
+> One partition was created for performance tuning.
 
 ### HighRiskFilter - (Transformation - Filter):
 
@@ -70,11 +74,39 @@
 
 ### RedLevelScoring - (Transformation - Union):
 
-> It unified the data from the three red filters: HighRiskFilter, IncomeTaxAlert, and UnpaidCreditsOrFraudReports.
+> It unifies the data from the three red filters: HighRiskFilter, IncomeTaxAlert, and UnpaidCreditsOrFraudReports.
 
 ### YellowLevelScoring - (Transformation - Union):
 
-> It unified the data from the two yellow filters: ExternalOrAuditDataFraud, and NoFraudulentAddress.
+> It unifies the data from the two yellow filters: ExternalOrAuditDataFraud, and NoFraudulentAddress.
+
+### AddRedColumn - (Transformation - AddColumns):
+
+> It adds the column RiskLevelScoring with the value ***Red*** for the data coming from the RedLevelScoring box.
+
+### AddYellowColumn - (Transformation - AddColumns):
+
+> It adds the column RiskLevelScoring with the value ***Yellow*** for the data coming from the YellowLevelScoring box.
+
+### AddGreenColumn - (Transformation - AddColumns):
+
+> It adds the column RiskLevelScoring with the value ***Green*** for the data coming from the HighCreditSizeThreshold filter box.
+
+### CompleteRiskLevelScoring - (Transformation - Union):
+
+> It unifies the data from the three AddColumns boxes: AddRedColumn, AddYellowColumn, and AddGreenColumn.
+
+### DropColumns - (Transformation - DropColumns):
+
+> It deletes the columns coming from the client_external_info table and the one with the probaility value in order to preserve the historic client data format for dashboard purpose. The columns deleted are: AddressFraudCheck, ContactAudit, FraudSuspicion, LegalCase, PoliceReport, ProbabilityValue, and, UkvCheck.
+
+### FinalRepartition - (Transformation - Repartition):
+
+> One final partition was created for performance tuning.
+
+### Parquet - (Output - Parquet):
+
+> The data with all the transformations and classifications is saved in a parquet file on the path ***/certification/students/dangt0521/***. The table name in crossdata for this data is ***CreditRiskScoring_dangt0521***
 
 ## Dashboard
 
