@@ -2,7 +2,7 @@
 
 ## Business Case
 
-> An important bank needs to ﬁlter good and bad credit requests as the bank receives them from potential clients (credit requesters). They need this to be automatic. The bank provides three ﬁles: 1) A sample of the bank’s historic credit request data, that they want to be automatically preprocessed from now on. 2) An example of one day’s requests to be used as input for the AI Model in the scoring workﬂow, and get a predicted default probability. 3) Credit bureau data (external data about clients) to enhance the scoring process with evidences of legal cases or police reports, applying this evidences of fraud in the workﬂow. Based on the data in this three ﬁles, the bank’s business analysts expect to receive a risk level scoring (red, yellow, or green) to be stored in a database (or parquet ﬁle) and presented in a Dashboard.
+> An important bank needs to ﬁlter good and bad credit requests as the bank receives them from potential clients (credit requesters). They need this to be automatic. The bank provides three ﬁles: 1) A sample of the bank’s historic credit request data, that they want to be automatically preprocessed from now on. 2) An example of one day’s requests to be used as input for the AI Model in the scoring workﬂow, and get a predicted default probability. 3) Credit bureau data (external data about clients) to enhance the scoring process with evidence of legal cases or police reports, applying this evidences of fraud in the workﬂow. Based on the data in these three ﬁles, the bank’s business analysts expect to receive a risk level scoring (red, yellow, or green) to be stored in a database (or parquet ﬁle) and presented in a Dashboard.
 
 ## Solution
 
@@ -14,11 +14,11 @@
 
 ### MlModel - (Transformation - MlModel):
 
-> The we execute the model riskscoring-v07 using the previous data as input.
+> This executes the model ***riskscoring-v07*** using the previous data as input.
 
 ### MlFiltered - (Transformation - Trigger):
 
-> In here the resulting data after the execution of the model is transformed within a script in order to leave it with the same format that the historic data provided has (for dashboard purposes) and the probability value for the risk calculation is added as well.
+> Here the resulting data after the execution of the model is transformed within a script in order to leave it with the same format that the historic data provided has (for dashboard purposes) and the probability value for the risk calculation is added as well.
 
 ### RenameColumns - (Transformation - RenameColumns):
 
@@ -62,7 +62,7 @@
 
 ### ExternalOrAuditDataFraud - (Transformation - Filter):
 
-> With the discarded data of the previous filter, this filter returns the data where the applicant may be in a source of fraud audit data or has  been registered in any external data source as fraudulent when paying subscription services like Telecomunications, mobiles, etc. If so, the client is classified with a ***yellow risk scoring level***.
+> With the discarded data of the previous filter, this filter returns the data where the applicant may be in a source of fraud audit data or has  been registered in any external data source as fraudulent when paying subscription services like Telecommunications, mobiles, etc. If so, the client is classified with a ***yellow risk scoring level***.
 
 ### NoFraudulentAddress - (Transformation - Filter):
 
@@ -98,7 +98,7 @@
 
 ### DropColumns - (Transformation - DropColumns):
 
-> It deletes the columns coming from the client_external_info table and the one with the probaility value in order to preserve the historic client data format for dashboard purpose. The columns deleted are: AddressFraudCheck, ContactAudit, FraudSuspicion, LegalCase, PoliceReport, ProbabilityValue, and, UkvCheck.
+> It deletes the columns coming from the client_external_info table and the one with the probability value in order to preserve the historic client data format for dashboard purposes. The columns deleted are: AddressFraudCheck, ContactAudit, FraudSuspicion, LegalCase, PoliceReport, ProbabilityValue, and, UkvCheck.
 
 ### FinalRepartition - (Transformation - Repartition):
 
