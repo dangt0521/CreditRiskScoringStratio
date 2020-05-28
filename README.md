@@ -6,10 +6,36 @@
 
 ## Solution
 
-> The workflow implemented for the problem provided (Here I explain the overall of the workflow
-### Crossdata (Here I explain each box and relation conector)
-### Reapartition
+> The workflow implemented for the business case can be found in the file 'workflow-batch-credit-risk-scoring-v0.json'. The overall of the design is a workflow where the main input is the example of the one day's requests data that is for the AI Model (riskscoring-v07), after some transformations the output is joined with the external auditory data of the clients, and then with some validations, clients are classified by their risk level scoring. There are two outputs, both in parquet files. One is for auditing before classification, and the other one contains the final data with the classifications. Each component of the design is explained below.
+
+### CreditRequestsToday - (Input - Crossdata):
+
+> This is the main input of the design. It gathers the data from the table client_credit_requests_today of the default database.
+
+### MlModel - (Transformation - MlModel):
+
+> The we execute the model riskscoring-v07 using the previous data as input.
+
+### MlFiltered - (Transformation - Trigger):
+
+> In here the resulting data after the execution of the model is transformed within a script in order to leave it with the same format that the historic data provided has (for dashboard purposes) and the probability value for the risk calculation is added as well.
+
+### RenameColumns - (Transformation - RenameColumns):
+
+> After the data was transformed some columns were Renamed for better visualization of the names and also to fit the name format that the Audit Data has (which later is going to be joined with).
+
+### ExternalAuditoryData - (Input - Crossdata):
+
+> It gathers the data from the table client_external_info of the default database.
+
+### ProcessedAndAuditoryDataJoined - (Transformation - Join):
+
+> It joins the data transformed and renamed from "RenameColumns" with the auditory data of the clients by the ID of the clients.
+
+### DropDuplicatedID - (Transformation - DropColumns):
+
+> It deletes the duplicated ID column resulting from the join.
 
 ## Dashboard
 
-> The installation instructions are low priority in the readme and should come at the bottom. The first part answers all their objections and now that they want to use it, show them how.
+> The dashboard was intended to be done using BI in Discovery, however, the testing environment is presenting issues. The request was scaled to Stratio, and the response received indicated that the Dashboard is not necessary for this particular practice and certification.
