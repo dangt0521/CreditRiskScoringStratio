@@ -6,7 +6,7 @@
 
 ## Solution
 
-> The workflow implemented for the business case can be found in the file 'workflow-batch-credit-risk-scoring-v0.json'. The overall of the design is a workflow where the main input is the example of the one day's requests data that is for the AI Model (riskscoring-v07), after some transformations the output is joined with the external auditory data of the clients, and then with some validations, clients are classified by their risk level scoring. There are two outputs, both in parquet files. One is for auditing before classification, and the other one contains the final data with the classifications. Each component of the design is explained below.
+> The workflow implemented for the business case can be found in the file 'workflow-batch-credit-risk-scoring-v0.json'. The overall of the design is a workflow where the main input is the example of the one day's requests data that is for the AI Model (***riskscoring-v07***), after some transformations the output is joined with the external auditory data of the clients, and then with some validations, clients are classified by their risk level scoring. There are two outputs, both in parquet files. One is for auditing before classification, and the other one contains the final data with the classifications. Each component of the design is explained below.
 
 ### CreditRequestsToday - (Input - Crossdata):
 
@@ -67,6 +67,14 @@
 ### HighCreditSizeThreshold - (Transformation - Filter):
 
 > With the discarded data of the previous filter, this filter returns the data where the credit amount of the applicant is greater than four thousand. If so, the client is classified with a ***green risk scoring level.***
+
+### RedLevelScoring - (Transformation - Union):
+
+> It unified the data from the three red filters: HighRiskFilter, IncomeTaxAlert, and UnpaidCreditsOrFraudReports.
+
+### YellowLevelScoring - (Transformation - Union):
+
+> It unified the data from the two yellow filters: ExternalOrAuditDataFraud, and NoFraudulentAddress.
 
 ## Dashboard
 
