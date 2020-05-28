@@ -36,6 +36,38 @@
 
 > It deletes the duplicated ID column resulting from the join.
 
+### Persist - (Transformation - Persist):
+
+> In order to avoid useless computation overheads, the Persist operation is used to persist and/or cache the data set in memory across operations.
+
+### Repartition - (Transformation - Repartition):
+
+> One partition was created for performance tuning
+
+### HighRiskFilter - (Transformation - Filter):
+
+> This filter returns the data where the ProbabilityValue is minor than 0.8. If so, the client is classified with a ***red risk scoring level.***
+
+### IncomeTaxAlert - (Transformation - Filter):
+
+> With the discarded data of the previous filter, this filter returns the data where the applicant has not paid the income tax. If so, the client is classified with a ***red risk scoring level.***
+
+### UnpaidCreditsOrFraudReports - (Transformation - Filter):
+
+> With the discarded data of the previous filter, this filter returns the data where the applicant has been involved in a legal case involving unpaid credits or is registered in at least one police report related to fraud. If so, the client is classified with a ***red risk scoring level.***
+
+### ExternalOrAuditDataFraud - (Transformation - Filter):
+
+> With the discarded data of the previous filter, this filter returns the data where the applicant may be in a source of fraud audit data or has  been registered in any external data source as fraudulent when paying subscription services like Telecomunications, mobiles, etc. If so, the client is classified with a ***yellow risk scoring level.***
+
+### NoFraudulentAddress - (Transformation - Filter):
+
+> With the discarded data of the previous filter, this filter returns the data where the applicant has used false address fraudulently. If so, the client is classified with a ***yellow risk scoring level.***
+
+### HighCreditSizeThreshold - (Transformation - Filter):
+
+> With the discarded data of the previous filter, this filter returns the data where the credit amount of the applicant is greater than four thousand. If so, the client is classified with a ***green risk scoring level.***
+
 ## Dashboard
 
 > The dashboard was intended to be done using BI in Discovery, however, the testing environment is presenting issues. The request was scaled to Stratio, and the response received indicated that the Dashboard is not necessary for this particular practice and certification.
